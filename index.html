@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <title>React+webpack</title>
+    <link rel="stylesheet" href="css/main.css">
+    <!-- start 计算页面使用rem的尺寸 必须放在头部 -->
+    <script>
+        (function (doc, win) {
+            //取得html的引用
+            var docEl = doc.documentElement,
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+                recalc = function () {
+                    var clientWidth = docEl.clientWidth;
+                    if (!clientWidth) return;
+                    clientWidth = (clientWidth > 768 ) ? 768 : clientWidth;
+                    docEl.style.fontSize = 100 * (clientWidth / 375 ) + 'px';
+                };
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+            recalc();
+
+        })(document, window);
+    </script>
+    <!-- end 计算页面使用rem的尺寸 必须放在头部 -->
+</head>
+<body>
+    <div id="root"></div>
+    <script src="bundle.js"></script>
+</body>
+</html>

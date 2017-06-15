@@ -1,0 +1,134 @@
+// SCSS variables are information about icon's compiled state, stored under its original file name
+//
+// .icon-home {
+//   width: $icon-home-width;
+// }
+//
+// The large array-like variables contain all information about a single icon
+// $icon-home: x y offset_x offset_y width height total_width total_height image_path;
+//
+// At the bottom of this section, we provide information about the spritesheet itself
+// $spritesheet: width height image $spritesheet-sprites;
+$icon-back-name: 'icon-back';
+$icon-back-x: 44px;
+$icon-back-y: 0px;
+$icon-back-offset-x: -44px;
+$icon-back-offset-y: 0px;
+$icon-back-width: 23px;
+$icon-back-height: 42px;
+$icon-back-total-width: 90px;
+$icon-back-total-height: 44px;
+$icon-back-image: '../images/sprite.png';
+$icon-back: (44px, 0px, -44px, 0px, 23px, 42px, 90px, 44px, '../images/sprite.png', 'icon-back', );
+$icon-dropdown-on-name: 'icon-dropdown-on';
+$icon-dropdown-on-x: 67px;
+$icon-dropdown-on-y: 32px;
+$icon-dropdown-on-offset-x: -67px;
+$icon-dropdown-on-offset-y: -32px;
+$icon-dropdown-on-width: 14px;
+$icon-dropdown-on-height: 6px;
+$icon-dropdown-on-total-width: 90px;
+$icon-dropdown-on-total-height: 44px;
+$icon-dropdown-on-image: '../images/sprite.png';
+$icon-dropdown-on: (67px, 32px, -67px, -32px, 14px, 6px, 90px, 44px, '../images/sprite.png', 'icon-dropdown-on', );
+$icon-dropdown-name: 'icon-dropdown';
+$icon-dropdown-x: 67px;
+$icon-dropdown-y: 38px;
+$icon-dropdown-offset-x: -67px;
+$icon-dropdown-offset-y: -38px;
+$icon-dropdown-width: 14px;
+$icon-dropdown-height: 6px;
+$icon-dropdown-total-width: 90px;
+$icon-dropdown-total-height: 44px;
+$icon-dropdown-image: '../images/sprite.png';
+$icon-dropdown: (67px, 38px, -67px, -38px, 14px, 6px, 90px, 44px, '../images/sprite.png', 'icon-dropdown', );
+$icon-ov-name: 'icon-ov';
+$icon-ov-x: 0px;
+$icon-ov-y: 0px;
+$icon-ov-offset-x: 0px;
+$icon-ov-offset-y: 0px;
+$icon-ov-width: 44px;
+$icon-ov-height: 44px;
+$icon-ov-total-width: 90px;
+$icon-ov-total-height: 44px;
+$icon-ov-image: '../images/sprite.png';
+$icon-ov: (0px, 0px, 0px, 0px, 44px, 44px, 90px, 44px, '../images/sprite.png', 'icon-ov', );
+$icon-phone-name: 'icon-phone';
+$icon-phone-x: 67px;
+$icon-phone-y: 0px;
+$icon-phone-offset-x: -67px;
+$icon-phone-offset-y: 0px;
+$icon-phone-width: 23px;
+$icon-phone-height: 32px;
+$icon-phone-total-width: 90px;
+$icon-phone-total-height: 44px;
+$icon-phone-image: '../images/sprite.png';
+$icon-phone: (67px, 0px, -67px, 0px, 23px, 32px, 90px, 44px, '../images/sprite.png', 'icon-phone', );
+$spritesheet-width: 90px;
+$spritesheet-height: 44px;
+$spritesheet-image: '../images/sprite.png';
+$spritesheet-sprites: ($icon-back, $icon-dropdown-on, $icon-dropdown, $icon-ov, $icon-phone, );
+$spritesheet: (90px, 44px, '../images/sprite.png', $spritesheet-sprites, );
+
+// The provided mixins are intended to be used with the array-like variables
+//
+// .icon-home {
+//   @include sprite-width($icon-home);
+// }
+//
+// .icon-email {
+//   @include sprite($icon-email);
+// }
+//
+// Example usage in HTML:
+//
+// `display: block` sprite:
+// <div class="icon-home"></div>
+//
+// To change `display` (e.g. `display: inline-block;`), we suggest using a common CSS class:
+//
+// // CSS
+// .icon {
+//   display: inline-block;
+// }
+//
+// // HTML
+// <i class="icon icon-home"></i>
+@mixin sprite-width($sprite) {
+  width: nth($sprite, 5);
+}
+
+@mixin sprite-height($sprite) {
+  height: nth($sprite, 6);
+}
+
+@mixin sprite-position($sprite) {
+  $sprite-offset-x: nth($sprite, 3);
+  $sprite-offset-y: nth($sprite, 4);
+  background-position: $sprite-offset-x  $sprite-offset-y;
+}
+
+@mixin sprite-image($sprite) {
+  $sprite-image: nth($sprite, 9);
+  background-image: url(#{$sprite-image});
+}
+
+@mixin sprite($sprite) {
+  @include sprite-image($sprite);
+  @include sprite-position($sprite);
+  @include sprite-width($sprite);
+  @include sprite-height($sprite);
+}
+
+// The `sprites` mixin generates identical output to the CSS template
+//   but can be overridden inside of SCSS
+//
+// @include sprites($spritesheet-sprites);
+@mixin sprites($sprites) {
+  @each $sprite in $sprites {
+    $sprite-name: nth($sprite, 10);
+    .#{$sprite-name} {
+      @include sprite($sprite);
+    }
+  }
+}
