@@ -5,7 +5,7 @@
 import React, { Component } from 'react';
 import Header from './header';
 
-class Demo1 extends Component {
+class Home extends Component {
     constructor(props) {
         super(props);
         this.render = this.render.bind(this);
@@ -21,7 +21,7 @@ class Demo1 extends Component {
     render () {
         return (
             <div>
-                <Header title="demo1"/>
+                <Header title="首页"/>
                 <section onClick={this.clickHander.bind(this)}>wangna say: Hello World!</section>
             </div>
 
@@ -29,4 +29,4 @@ class Demo1 extends Component {
     }
 }
 
-export default Demo1;
+export default Home;
