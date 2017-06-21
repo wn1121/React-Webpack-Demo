@@ -4,26 +4,28 @@ var precss = require('precss');
 var autoprefixer = require('autoprefixer');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var SpritesmithPlugin = require('webpack-spritesmith');
+//var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-var ENV = process.env.NODE_ENV || "dev";
-var DEBUG = ENV == "dev";
-if (process.env.NODE_ENV === 'production') {
-    config.plugins.push(new webpack.optimize.UglifyJsPlugin());
-}
+// Whatever comes as an environment variable, otherwise use root
+const ASSET_PATH = process.env.ASSET_PATH || '/';
+const NODE_ENV = process.env.NODE_ENV || "dev";
 
+console.log(NODE_ENV);
+var DEBUG = NODE_ENV == "dev";
 if (DEBUG) {
     console.log("---------- dev Environment ------------")
 } else {
     console.log("---------- Online Environment ------------")
 }
 
-module.exports = {
+var config = {
     // 入口
     entry: ['webpack/hot/dev-server', path.resolve(__dirname, './src/main.js')],
     // 输出
     output: {
         path: path.resolve(__dirname, './build'),
         filename: 'bundle.js',
+        publicPath: ASSET_PATH
     },
     // 服务器配置
     devServer: {
@@ -38,6 +40,7 @@ module.exports = {
     },
     resolve: {
         //root: path.resolve(__dirname) + '/src/',
+        modules: [path.resolve(__dirname, './src'), 'node_modules'],
         alias: {
             //Host: DEBUG ? "./src/config/host_dev" : "./src/config/host_online"
         }
@@ -64,7 +67,8 @@ module.exports = {
                 test: /\.scss/,
                 loader: ExtractTextPlugin.extract({fallback: "style-loader", use: "css-loader!sass-loader"})
             }
-        ]
+        ],
+        //noParse: 不需要解析
     },
     //插件项
     plugins: [
@@ -92,8 +96,25 @@ module.exports = {
         }),
         new webpack.DefinePlugin({//定义全局变量
             'process.env': {
-                NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+                NODE_ENV: JSON.stringify(NODE_ENV),
+                ASSET_PATH: JSON.stringify(ASSET_PATH)
             },
-        })
+        }),
+        // new HtmlWebpackPlugin({
+        //     title: 'Output Management',
+        //     favicon: './favicon.ico'
+        // })
+        // new webpack.optimize.CommonsChunkPlugin({
+        //     name: 'common',
+        //     filename: 'common.js',
+        //     minChunks: 2,
+        // }),
     ]
 };
+
+if (process.env.NODE_ENV === 'production') {
+    //压缩
+    config.plugins.push(new webpack.optimize.UglifyJsPlugin());
+}
+
+module.exports =config;

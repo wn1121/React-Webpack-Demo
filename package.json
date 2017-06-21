@@ -14,6 +14,7 @@
     "css-loader": "^0.28.4",
     "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "^0.11.2",
+    "html-webpack-plugin": "^2.28.0",
     "node-sass": "^4.5.3",
     "postcss-loader": "^2.0.5",
     "precss": "^1.4.0",
@@ -31,9 +32,9 @@
     "webpack-spritesmith": "^0.3.3"
   },
   "scripts": {
-    "start": "webpack",
-    "dev": "NODE_ENV=dev webpack-dev-server",
-    "prod": "NODE_ENV=production webpack-dev-server"
+    "build:dev": "NODE_ENV=dev webpack --progress --profile --colors",
+    "build:prod": "NODE_ENV=production webpack --progress --profile --colors",
+    "start": "webpack-dev-server"
   },
   "author": "",
   "license": "ISC"
