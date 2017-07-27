@@ -1,0 +1,144 @@
+@import "config";
+
+@function pxToRem($px){
+  @return $px / $baseHtmlSize * 1rem;
+}
+
+@mixin absolute-vertical($heightPX){
+  position: absolute;
+  top:50%;
+  height: pxToRem($heightPX);
+  margin-top:- ( pxToRem($heightPX / 2) ) ;
+}
+@mixin absolute-horizontal($widthPX){
+  position: absolute;
+  left:50%;
+  width: pxToRem($widthPX);
+  margin-left:- ( pxToRem($widthPX / 2) ) ;
+}
+
+@mixin hair-line-t($color){
+  &:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: auto;
+    height: 1px;
+    width: 100%;
+    background-color: $color;
+    display: block;
+    z-index: 15;
+    transform-origin: 50% 0%;
+    @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+      transform: scaleY(0.5);
+    }
+    @media only screen and (-webkit-min-device-pixel-ratio: 3) {
+      transform: scaleY(0.33);
+    }
+  }
+}
+@mixin hair-line-b($color){
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: auto;
+    top: auto;
+    height: 1px;
+    width: 100%;
+    background-color: $color;
+    display: block;
+    z-index: 15;
+    transform-origin: 50% 100%;
+    @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+      transform: scaleY(0.5);
+    }
+    @media only screen and (-webkit-min-device-pixel-ratio: 3) {
+      transform: scaleY(0.33);
+    }
+  }
+}
+
+@mixin hair-line-l($color){
+  &:after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width:1px;
+    background-color: $color;
+    display: block;
+    z-index: 15;
+    transform-origin: 100% 0%;
+    @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+      transform: scaleX(0.5);
+    }
+    @media only screen and (-webkit-min-device-pixel-ratio: 3) {
+      transform: scaleX(0.33);
+    }
+  }
+}
+
+@mixin hair-line-r($color){
+  &:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 1px;
+    background-color: $color;
+    display: block;
+    z-index: 15;
+    transform-origin: 100% 50%;
+    @media only screen and (-webkit-min-device-pixel-ratio: 2) {
+      transform: scaleX(0.5);
+    }
+    @media only screen and (-webkit-min-device-pixel-ratio: 3) {
+      transform: scaleX(0.33);
+    }
+  }
+}
+
+@mixin flex-box{
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+}
+@mixin text-ellipsis-l{
+  overflow : hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+@mixin text-ellipsis-m($number){
+  overflow : hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: $number;
+  -webkit-box-orient: vertical;
+}
+
+@mixin appearance{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+}
+
+@mixin max-screen-size($res){
+  @media only screen and ( max-width: $res ){
+    html{
+      font-size:($res / $baseViewSize ) * $baseHtmlSize;
+    }
+  }
+}
+@mixin max-screen($res){
+  @media only screen and ( max-width: $res ) {
+    @content
+  }
+}
+
