@@ -15,7 +15,7 @@ render(
             <footer>
                 <ul>
                     <li><NavLink to={Routes.Home} activeClassName="active">首页</NavLink></li>
-                    <li><NavLink to='/hot/5' activeClassName="active">热门</NavLink></li>
+                    <li><NavLink to='/hot/5' activeClassName="active">热门1</NavLink></li>
                     <li><NavLink to={`/article/${88}`} activeClassName="active">文章</NavLink></li>
                 </ul>
             </footer>

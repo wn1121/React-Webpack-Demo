@@ -21,7 +21,7 @@ class Home extends Component {
     render () {
         return (
             <div>
-                <Header title="首页"/>
+                <Header title="首页1"/>
                 <section onClick={this.clickHander.bind(this)}>wangna say: Hello World!</section>
             </div>
 

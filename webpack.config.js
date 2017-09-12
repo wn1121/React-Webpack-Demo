@@ -4,10 +4,12 @@ var precss = require('precss');
 var autoprefixer = require('autoprefixer');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var SpritesmithPlugin = require('webpack-spritesmith');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const url = require('url')
 //var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 // Whatever comes as an environment variable, otherwise use root
-const ASSET_PATH = process.env.ASSET_PATH || '/';
+const ASSET_PATH = process.env.ASSET_PATH || '/assets/';
 const NODE_ENV = process.env.NODE_ENV || "dev";
 
 console.log(NODE_ENV);
@@ -23,7 +25,7 @@ var config = {
     entry: ['webpack/hot/dev-server', path.resolve(__dirname, './src/main.js')],
     // 输出
     output: {
-        path: path.resolve(__dirname, './build'),
+        path: path.resolve(__dirname, 'build'),
         filename: 'bundle.js',
         publicPath: ASSET_PATH
     },
@@ -36,6 +38,9 @@ var config = {
             app.get('/getJSON', function(req, res) {
                 res.json({ name: 'vajoy' });
             });
+        },
+        historyApiFallback: {
+            index: url.parse(ASSET_PATH).pathname
         }
     },
     resolve: {
@@ -95,11 +100,12 @@ var config = {
             }
         }),
         new webpack.DefinePlugin({//定义全局变量
-            'process.env': {
-                NODE_ENV: JSON.stringify(NODE_ENV),
-                ASSET_PATH: JSON.stringify(ASSET_PATH)
-            },
+            'isNeedInstall': 1
         }),
+        new HtmlWebpackPlugin({
+            template: 'src/index.html',
+        }),
+
         // new HtmlWebpackPlugin({
         //     title: 'Output Management',
         //     favicon: './favicon.ico'

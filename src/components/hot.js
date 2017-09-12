@@ -16,7 +16,7 @@ class Hot extends React.Component {
     render() {
         return (
             <div>
-                <Header title="热门"/>
+                <Header title="热门112"/>
                 <section className="">
                     <p>来获取下id:{this.props.match.params.id}</p>
                     <p>Time elapsed for interval: {this.props.seconds}ms</p>

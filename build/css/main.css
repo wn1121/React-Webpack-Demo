@@ -217,6 +217,7 @@ img {
 /*button*/
 /*header*/
 header {
+  position: fixed;
   width: 100%;
   height: .45rem;
   line-height: .45rem;
@@ -230,8 +231,8 @@ footer {
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 45px;
-  line-height: 45px;
+  height: .45rem;
+  line-height: .45rem;
   background-color: #fff;
   border-top: 1px solid #ddd; }
   footer ul {
@@ -247,7 +248,7 @@ footer {
 
 /*section*/
 section {
-  padding: .1rem .1rem; }
+  padding: .55rem .1rem; }
 
 /*表单*/
 /*列表*/
